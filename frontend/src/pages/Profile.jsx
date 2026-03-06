@@ -9,6 +9,7 @@ import nodp from "../assets/dpblank.png"
 import Nav from '../components/Nav'
 import FollowButton from '../components/FollowButton'
 import Post from '../components/Post '
+import { setselectedUser } from '../redux/messageSlice'
 
 const Profile = () => {
   const { userName } = useParams()
@@ -44,18 +45,21 @@ const Profile = () => {
     return <div className="text-black">Loading...</div>
   }
 
+  // Helper check to safely compare IDs
+  const isOwnProfile = profileData?._id === userData?._id;
 
   return (
     <div className='w-full min-h-screen bg-black'>
 
+      {/* HEADER */}
       <div className='w-full h-20 flex justify-between items-center px-7.5 text-white'>
         <div onClick={() => navigate("/")}><MdOutlineKeyboardBackspace className="size-[25px] cursor-pointer" />
         </div>
-
         <div className='font-semibold text-[20px]'>{profileData?.userName}</div>
-
         <div className="font-semibold text-[20px] text-blue-500 cursor-pointer" onClickCapture={handleLogOut}>Log Out</div>
       </div>
+
+      {/* BIO SECTION */}
       <div className='w-full h-[150px] flex items-start gap-5 lg:gap-[50px] pt-5 px-2.5 justify-center'>
         <div className='w-[80px] h-[80px] md:w-[140px] md:h-[140px] border-2 border-black rounded-full cursor-pointer overflow-hidden'>
           <img src={profileData?.profileImage || nodp} alt='' className='w-full object-cover' />
@@ -64,13 +68,12 @@ const Profile = () => {
           <div className='font-semibold text-[22px] text-white'>{profileData?.name}</div>
           <div className='text-[17px] text-[#ffffffe8]'>{profileData?.profession || "New User"}</div>
           <div className='text-[17px] text-[#ffffffe8]'>{profileData?.bio}</div>
-
         </div>
       </div>
 
+      {/* STATS (Posts/Followers/Following) */}
       <div className='w-full h-20 flex items-center justify-center gap-10 md:gap-15 px-5 pt-7.5 text-white'>
-
-        {/* POSTS */}
+        {/* POSTS COUNT */}
         <div>
           <div className='text-white text-[22px] md:text-[30px] font-semibold'>{profileData?.posts.length}</div>
           <div className='text-[18px] md:text-[22px] text-[#ffffffe8]'>Posts</div>
@@ -94,7 +97,7 @@ const Profile = () => {
           <div className='text-[18px] md:text-[22px] text-[#ffffffe8]'>Followers</div>
         </div>
 
-        {/* FOLLOWING - FIXED AREA */}
+        {/* FOLLOWING */}
         <div>
           <div className='flex items-center justify-center gap-5'>
             <div className='flex relative'>
@@ -113,40 +116,61 @@ const Profile = () => {
           <div className='text-[18px] md:text-[22px] text-[#ffffffe8]'>Following</div>
         </div>
       </div>
+
+      {/* ACTION BUTTONS (Edit or Follow) */}
       <div className='w-full h-20 flex justify-center items-center gap-5 mt-2.5  '>
-        {profileData?._id == userData?._id &&
+        {isOwnProfile &&
           <button onClick={() => navigate("/editprofile")} className='px-2.5 min-w-37.5 py-[5px] h-10 bg-white cursor-pointer rounded-2xl
          '>Edit Profile</button>}
 
-        {profileData?._id != userData._id &&
+        {!isOwnProfile &&
           <>
             <FollowButton tailwind={`px-2.5 min-w-37.5 py-[5px] h-10 bg-white cursor-pointer rounded-2xl
          `} targetUserId={profileData?._id} onFollowChange={handleProfile} />
-            <button className='px-2.5 min-w-37.5 py-[5px] h-10 bg-white cursor-pointer rounded-2xl
-         '>Message</button>
+            <button className='px-2.5 min-w-[150px] py-[5px] h-10 bg-white cursor-pointer rounded-2xl
+         ' onClick={() => {
+                dispatch(setselectedUser(profileData)), navigate("/messagesarea")
+              }}>Message</button>
           </>
         }
       </div>
 
       <div className='w-full min-h-screen flex justify-center'>
         <div className='w-full max-w-[900px] flex flex-col items-center rounded-t-[30px] bg-white relative gap-5 pt-[30px] pb-[100px]'>
-          <div className='w-[90%] max-w-[500px] h-[80px] bg-white rounded-full flex justify-center items-center gap-[10px]' >
+
+          {/* --- CHANGED HERE --- */}
+          {/* Only show the Posts/Saved Toggle if it is YOUR profile */}
+          {isOwnProfile && <div className='w-[90%] max-w-[500px] h-[80px] bg-white rounded-full flex justify-center items-center gap-[10px]' >
 
             <div className={`${postType == "posts" ? "text-white bg-black shadow-2xl shadow-black w-[28%] h-[80%] flex justify-center items-center text-[19px] font-semibold rounded-full hover:shadow-2xl hover:shadow-black hover:bg-black hover:text-white cursor-pointer " : " "}w-[28%] h-[80%] flex justify-center
                 items-center text-[19px] font-semibold rounded-full hover:shadow-2xl hover:shadow-black hover:bg-black hover:text-white cursor-pointer`} onClick={() => setPostType("posts")}>Posts</div>
 
             <div className={`${postType == "saved" ? "text-white bg-black shadow-2xl shadow-black w-[28%] h-[80%] flex justify-center items-center text-[19px] font-semibold rounded-full hover:shadow-2xl hover:shadow-black hover:bg-black hover:text-white cursor-pointer " : " "}w-[28%] h-[80%] flex justify-center
                 items-center text-[19px] font-semibold rounded-full hover:shadow-2xl hover:shadow-black hover:bg-black hover:text-white cursor-pointer`} onClick={() => setPostType("saved")}>Saved</div>
-          </div>
+          </div>}
+
+          {/* I removed the block that rendered a single "Posts" tab for other users */}
+
           <Nav />
-          {postType == "posts" && postData.map((post, index) => (
+
+          {/* RENDER POSTS Logic */}
+
+          {/* Logic for OWN Profile */}
+          {isOwnProfile && <>
+            {postType == "posts" && postData.map((post, index) => (
+              post.author?._id == profileData?._id && <Post key={index} post={post} />
+            ))}
+            {postType == "saved" && postData.map((post, index) => (
+              userData?.saved?.includes(post._id) && <Post key={index} post={post} />
+            ))}
+          </>
+          }
+
+          {/* Logic for OTHER Profile */}
+          {!isOwnProfile && postData.map((post, index) => (
             post.author?._id == profileData?._id && <Post key={index} post={post} />
-          ))}
-          {postType == "saved" && postData.map((post, index) => (
-            userData.saved.includes(post._id) && <Post key={index} post={post} />
-          ))}
-
-
+          ))
+          }
         </div>
       </div>
     </div>

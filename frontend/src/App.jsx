@@ -1,23 +1,70 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
 import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import getCurrentUser from './hooks/getCurrentUser'
 import getSuggestedUsers from './hooks/getSuggestedUsers'
 import Profile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
 import Upload from './pages/upload'
 import getAllPost from './hooks/getAllPost'
+import Loops from './pages/Loops'
+import getAllLoops from './hooks/getAllLoops'
+import Story from './pages/Story'
+import getAllStories from './hooks/getAllStories'
+import Messages from './pages/Messages'
+import MessagesArea from './pages/MessagesArea'
+import { io } from "socket.io-client"
+import { setOnlineUsers, setSocket } from './redux/socketSlice'
+import getFollowingList from './hooks/getFollowingList'
+import getPrevChatUsers from './hooks/getPrevChatUsers'
+import Search from './pages/Search'
+import getAllNotifications from './hooks/getAllNotifications'
+import Notifications from './pages/Notifications'
+import { setNotificationData } from './redux/userSlice'
 export const serverURL = "http://localhost:8000"
 
 const App = () => {
   getCurrentUser()
   getSuggestedUsers()
   getAllPost()
-  const { userData } = useSelector(state => state.user)
+  getAllLoops()
+  getAllStories()
+  getFollowingList()
+  getPrevChatUsers()
+  getAllNotifications()
+  const { userData, notificationData } = useSelector(state => state.user)
+  const { socket } = useSelector(state => state.socket)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if (userData) {
+      const socketIo = io(serverURL, {
+        query: {
+          userId: userData._id
+        }
+      })
+      dispatch(setSocket(socketIo))
+
+      socketIo.on('getOnlineUsers', (users) => {
+        dispatch(setOnlineUsers(users))
+      })
+
+      return () => socketIo.close()
+    } else {
+      if (socket) {
+        socket.close()
+        dispatch(setSocket(null))
+      }
+    }
+  }, [userData])
+
+
+    socket.on("newNotification", (noti) => {
+      dispatch(setNotificationData(...notificationData,noti))
+    })
 
   return (
     <Routes>
@@ -27,7 +74,13 @@ const App = () => {
       <Route path='/forgot-password' element={!userData ? <ForgotPassword /> : <Navigate to={"/"} />} />
       <Route path='/profile/:userName' element={userData ? <Profile /> : <Navigate to={"/signin"} />} />
       <Route path='/editprofile' element={userData ? <EditProfile /> : <Navigate to={"/signin"} />} />
+      <Route path='/messages' element={userData ? <Messages /> : <Navigate to={"/signin"} />} />
+      <Route path='/messagearea' element={userData ? <MessagesArea /> : <Navigate to={"/signin"} />} />
       <Route path='/upload' element={userData ? <Upload /> : <Navigate to={"/signin"} />} />
+      <Route path='/loops' element={userData ? <Loops /> : <Navigate to={"/signin"} />} />
+      <Route path='/notifications' element={userData ? <Notifications /> : <Navigate to={"/signin"} />} />
+      <Route path='/story/:userName' element={userData ? <Story /> : <Navigate to={"/signin"} />} />
+      <Route path='/search' element={userData ? <Search /> : <Navigate to={"/signin"} />} />
     </Routes>
   )
 }

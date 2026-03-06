@@ -68,3 +68,17 @@ export const getStoryByUserName = async (req, res) => {
         res.status(500).json({ message: "story get by userName error" })
     }
 }
+
+export const getAllStories = async (req,res)=>{
+    try {
+        const currentUser = await User.findById(req.userId)
+        const followingIds = currentUser.following
+        const stories = await Story.find({
+            author:{$in:followingIds}
+        }).populate("viewers author").sort({createdAt:-1})
+
+        return res.status(200).json(stories)
+    } catch (error) {
+        res.status(500).json({ message: `All Story get error ${error}`})
+    }
+}

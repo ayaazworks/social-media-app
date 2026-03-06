@@ -8,9 +8,11 @@ import userRouter from './routes/user.routes.js';
 import postRouter from './routes/post.routes.js';
 import loopRouter from './routes/loop.routes.js';
 import storyRouter from './routes/story.routes.js';
+import messageRouter from './routes/message.routes.js';
+import { app, server } from './socket.js';
 dotenv.config()
 
-const app= express();
+
 const port = process.env.PORT || 8000
 
 app.use(cors({
@@ -25,12 +27,13 @@ app.use("/api/user",userRouter)
 app.use("/api/post",postRouter)
 app.use("/api/loop",loopRouter)
 app.use("/api/story",storyRouter)
+app.use("/api/message",messageRouter)
 
 
 
 
 
-app.listen(port,async ()=> {
+server.listen(port,async ()=> {
     await connectDb()
     console.log(`Server started at ${port}` )
 })

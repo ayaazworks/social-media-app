@@ -1,7 +1,9 @@
 import uploadOnCloudinary from "../config/cloudinary.js";
 import Loop from "../models/loop.model.js";
+import Notification from "../models/notification.model.js";
 import Post from "../models/post.model.js"
 import User from "../models/user.model.js"
+import { getSocketId, io } from "../socket.js"
 export const uploadLoop = async (req, res) => {
     try {
         const { caption } = req.body
@@ -35,7 +37,7 @@ export const getAllPost = async (req, res) => {
 
 export const likeLoop = async (req, res) => {
     try {
-        const loopId = req.params.postId
+        const loopId = req.params.loopId
         const loop = await Loop.findById(loopId)
         if (!loop) {
             return res.status(400).json({ message: "Loop not Found" })
@@ -47,9 +49,28 @@ export const likeLoop = async (req, res) => {
             loop.likes = loop.likes.filter(id => id.toString() !== req.userId.toString())
         } else {
             loop.likes.push(req.userId)
+            if (loop.author._id != req.userId) {
+                const notification = await Notification.create({
+                    sender: req.userId,
+                    receiver: loop.author._id,
+                    type: "like",
+                    loop: loop._id,
+                    message: "liked your loop"
+                })
+                const populatedNotification = await Notification.findById(notification._id)
+                    .populate("sender receiver loop")
+                const reciverSocketId = getSocketId(loop.author._id)
+                if (reciverSocketId) {
+                    io.to(reciverSocketId).emit("newNotification", populatedNotification)
+                }
+            }
         }
         await loop.save()
-        loop.populate("author", "name userName profileImage")
+        await loop.populate("author", "name userName profileImage")
+        io.emit("likedLoop", {
+            loopId: loop._id,
+            likes: loop.likes
+        })
         return res.status(200).json(loop)
     } catch (error) {
         return res.status(500).json({ message: `likeLoop Controller error ${error}` })
@@ -60,7 +81,7 @@ export const comment = async (req, res) => {
     try {
         const { message } = req.body
         const loopId = req.params.loopId
-        const loop = await Post.findById(loopId)
+        const loop = await Loop.findById(loopId)
         if (!loop) {
             return res.status(400).json({ message: "Loop not Found" })
         }
@@ -68,9 +89,28 @@ export const comment = async (req, res) => {
             author: req.userId,
             message
         })
+        if (loop.author._id != req.userId) {
+                const notification = await Notification.create({
+                    sender: req.userId,
+                    receiver: loop.author._id,
+                    type: "comment",
+                    loop: loop._id,
+                    message: "commented on your loop"
+                })
+                const populatedNotification = await Notification.findById(notification._id)
+                    .populate("sender receiver loop")
+                const reciverSocketId = getSocketId(loop.author._id)
+                if (reciverSocketId) {
+                    io.to(reciverSocketId).emit("newNotification", populatedNotification)
+                }
+            }
         await loop.save()
-        loop.populate("author", "name userName profileImage");
-        loop.populate("comments.author")
+        await loop.populate("author", "name userName profileImage");
+        await loop.populate("comments.author")
+        io.emit("commentedLoop", {
+            loopId: loop._id,
+            comments: loop.comments
+        })
         return res.status(200).json(loop)
     } catch (error) {
         return res.status(500).json({ message: `LoopComment Controller error ${error}` })
@@ -80,7 +120,7 @@ export const comment = async (req, res) => {
 export const getAllLoops = async (req, res) => {
     try {
         const loops = await Loop.find({}).populate("author", "name userName profileImage")
-        .populate("comments.author")
+            .populate("comments.author")
         return res.status(200).json(loops)
     } catch (error) {
         return res.status(500).json({ message: `getAlLoops Controller error ${error}` })

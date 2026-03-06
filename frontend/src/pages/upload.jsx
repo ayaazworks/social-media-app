@@ -8,8 +8,9 @@ import { serverURL } from '../App'
 import { useDispatch, useSelector } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
 import { setpostData } from '../redux/postSlice';
-import { setStoryData } from '../redux/storySlice';
+import { setCurrentUserStory, setStoryData } from '../redux/storySlice';
 import { setLoopData } from '../redux/loopSlice';
+import { setUserData } from '../redux/userSlice';
 
 
 const Upload = () => {
@@ -62,7 +63,7 @@ const Upload = () => {
             formData.append("mediaType", mediaType)
             formData.append("media", backendMedia)
             const result = await axios.post(`${serverURL}/api/story/upload`, formData, { withCredentials: true })
-            dispatch(setStoryData([...storyData, result.data]))
+            dispatch(setCurrentUserStory(result.data))
             setLoading(false)
             navigate("/")
         } catch (error) {
@@ -119,7 +120,7 @@ const Upload = () => {
 
             {!frontendMedia && <div className='w-[80%] max-w-[500px] h-[250px] bg-[#0e1316] border-gray-800 border-2 flex flex-col items-center justify-center gap-[8px] mt-[15vh] rounded-2xl cursor-pointer hover:bg-[#353a3d] ' onClick={() => mediaInput.current.click()}>
 
-                <input type='file' hidden ref={mediaInput} onChange={handleMedia} />
+                <input type='file' accept={uploadType =="loop"?"video/*":""} hidden ref={mediaInput} onChange={handleMedia} />
 
                 <FiPlusSquare className='text-white w-[25px] h-[25px] cursor-pointer' />
                 <div className='text-white text-[19px] font-semibold '>Upload {uploadType}</div>
