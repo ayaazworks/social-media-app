@@ -28,7 +28,7 @@ const notificationSchema = new mongoose.Schema({
         ref: "Loop",
     },
     isRead: {
-        type: boolean,
+        type: Boolean,
         default: false
     }
 }, { timestamps: true })

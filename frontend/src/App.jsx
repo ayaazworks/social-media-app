@@ -27,7 +27,9 @@ import Notifications from './pages/Notifications'
 import { setNotificationData } from './redux/userSlice'
 export const serverURL = "http://localhost:8000"
 
+
 const App = () => {
+  // Assuming these hooks handle their own internal useEffects correctly
   getCurrentUser()
   getSuggestedUsers()
   getAllPost()
@@ -35,16 +37,18 @@ const App = () => {
   getAllStories()
   getFollowingList()
   getPrevChatUsers()
-  getAllNotifications()
+  // getAllNotifications()
+
   const { userData, notificationData } = useSelector(state => state.user)
   const { socket } = useSelector(state => state.socket)
   const dispatch = useDispatch()
+
   useEffect(() => {
+    let socketIo;
+
     if (userData) {
-      const socketIo = io(serverURL, {
-        query: {
-          userId: userData._id
-        }
+      socketIo = io(serverURL, {
+        query: { userId: userData._id }
       })
       dispatch(setSocket(socketIo))
 
@@ -52,26 +56,25 @@ const App = () => {
         dispatch(setOnlineUsers(users))
       })
 
-      return () => socketIo.close()
-    } else {
-      if (socket) {
-        socket.close()
+
+      socketIo.on("newNotification", (noti) => {
+
+        dispatch(setNotificationData([...notificationData, noti]))
+      })
+
+      return () => {
+        socketIo.close()
         dispatch(setSocket(null))
       }
     }
-  }, [userData])
-
-
-    socket.on("newNotification", (noti) => {
-      dispatch(setNotificationData(...notificationData,noti))
-    })
-
+  }, [userData, dispatch])
   return (
     <Routes>
+      <Route path='/' element={userData ? <Home /> : <Navigate to={"/signin"} />} />
       <Route path='/signup' element={!userData ? <SignUp /> : <Navigate to={"/"} />} />
       <Route path='/signin' element={!userData ? <SignIn /> : <Navigate to={"/"} />} />
-      <Route path='/' element={userData ? <Home /> : <Navigate to={"/signin"} />} />
       <Route path='/forgot-password' element={!userData ? <ForgotPassword /> : <Navigate to={"/"} />} />
+      {/* Grouping protected routes or using a Layout component is often cleaner here */}
       <Route path='/profile/:userName' element={userData ? <Profile /> : <Navigate to={"/signin"} />} />
       <Route path='/editprofile' element={userData ? <EditProfile /> : <Navigate to={"/signin"} />} />
       <Route path='/messages' element={userData ? <Messages /> : <Navigate to={"/signin"} />} />

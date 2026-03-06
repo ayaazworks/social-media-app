@@ -50,4 +50,3 @@ const Notifications = () => {
 }
 
 export default Notifications
-className = 'w-full h-[100vh] bg-black'
