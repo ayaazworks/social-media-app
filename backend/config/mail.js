@@ -3,14 +3,14 @@ import dotenv from "dotenv"
 dotenv.config()
 
 const transporter = nodeMailer.createTransport({
-    service:"Gmail",
-    port:465,
-    secure: true,
-    auth:{
+    host: "smtp.gmail.com",
+    port: 587,             // CHANGED from 465 to 587
+    secure: false,         // CHANGED to false (required for port 587)
+    requireTLS: true,      // ADDED to force encryption after connecting
+    auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASS
     }
-
 });
 
 const sendOtp = async (receiver,otp) =>{
