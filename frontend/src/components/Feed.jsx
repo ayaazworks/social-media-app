@@ -20,7 +20,6 @@ const Feed = () => {
       storyRef.current.scrollLeft += e.deltaY
     }
   }
-  console.log(currentUserStory)
   return (
     <div className='lg:w-[50%] w-full bg-black min-h-[100vh] lg:h-[100vh] relative lg:overflow-y-auto'>
       <div className='w-full h-[100px] flex items-center justify-between p-[20px] lg:hidden '>
