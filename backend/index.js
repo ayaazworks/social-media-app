@@ -16,7 +16,7 @@ dotenv.config()
 const port = process.env.PORT || 8000
 
 app.use(cors({
-    origin:"http://localhost:5173",
+    origin:"https://friendly-grace-production-6569.up.railway.app",
     credentials:true
 }))
 app.use(express.json());
