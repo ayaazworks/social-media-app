@@ -59,7 +59,7 @@ const Profile = () => {
         <div className="font-semibold text-[20px] text-blue-500 cursor-pointer" onClickCapture={handleLogOut}>Log Out</div>
       </div>
 
-      {/* BIO SECTION */}
+      {/* BIO */}
       <div className='w-full h-[150px] flex items-start gap-5 lg:gap-[50px] pt-5 px-2.5 justify-center'>
         <div className='w-[80px] h-[80px] md:w-[140px] md:h-[140px] border-2 border-black rounded-full cursor-pointer overflow-hidden'>
           <img src={profileData?.profileImage || nodp} alt='' className='w-full object-cover' />
@@ -117,7 +117,7 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* ACTION BUTTONS (Edit or Follow) */}
+      {/* BUTTONS (Edit or Follow) */}
       <div className='w-full h-20 flex justify-center items-center gap-5 mt-2.5  '>
         {isOwnProfile &&
           <button onClick={() => navigate("/editprofile")} className='px-2.5 min-w-37.5 py-[5px] h-10 bg-white cursor-pointer rounded-2xl
@@ -138,7 +138,6 @@ const Profile = () => {
       <div className='w-full min-h-screen flex justify-center'>
         <div className='w-full max-w-[900px] flex flex-col items-center rounded-t-[30px] bg-white relative gap-5 pt-[30px] pb-[100px]'>
 
-          {/* --- CHANGED HERE --- */}
           {/* Only show the Posts/Saved Toggle if it is YOUR profile */}
           {isOwnProfile && <div className='w-[90%] max-w-[500px] h-[80px] bg-white rounded-full flex justify-center items-center gap-[10px]' >
 
@@ -149,11 +148,8 @@ const Profile = () => {
                 items-center text-[19px] font-semibold rounded-full hover:shadow-2xl hover:shadow-black hover:bg-black hover:text-white cursor-pointer`} onClick={() => setPostType("saved")}>Saved</div>
           </div>}
 
-          {/* I removed the block that rendered a single "Posts" tab for other users */}
-
           <Nav />
 
-          {/* RENDER POSTS Logic */}
 
           {/* Logic for OWN Profile */}
           {isOwnProfile && <>

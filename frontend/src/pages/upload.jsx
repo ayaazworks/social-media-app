@@ -8,9 +8,8 @@ import { serverURL } from '../App'
 import { useDispatch, useSelector } from 'react-redux';
 import { ClipLoader } from 'react-spinners';
 import { setpostData } from '../redux/postSlice';
-import { setCurrentUserStory, setStoryData } from '../redux/storySlice';
+import { setCurrentUserStory } from '../redux/storySlice';
 import { setLoopData } from '../redux/loopSlice';
-import { setUserData } from '../redux/userSlice';
 
 
 const Upload = () => {

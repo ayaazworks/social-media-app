@@ -29,7 +29,6 @@ export const serverURL = "http://localhost:8000"
 
 
 const App = () => {
-  // Assuming these hooks handle their own internal useEffects correctly
   getCurrentUser()
   getSuggestedUsers()
   getAllPost()
@@ -37,7 +36,7 @@ const App = () => {
   getAllStories()
   getFollowingList()
   getPrevChatUsers()
-  // getAllNotifications()
+  getAllNotifications()
 
   const { userData, notificationData } = useSelector(state => state.user)
   const { socket } = useSelector(state => state.socket)
@@ -74,7 +73,9 @@ const App = () => {
       <Route path='/signup' element={!userData ? <SignUp /> : <Navigate to={"/"} />} />
       <Route path='/signin' element={!userData ? <SignIn /> : <Navigate to={"/"} />} />
       <Route path='/forgot-password' element={!userData ? <ForgotPassword /> : <Navigate to={"/"} />} />
-      {/* Grouping protected routes or using a Layout component is often cleaner here */}
+
+      {/* Grouping protected routes */}
+      
       <Route path='/profile/:userName' element={userData ? <Profile /> : <Navigate to={"/signin"} />} />
       <Route path='/editprofile' element={userData ? <EditProfile /> : <Navigate to={"/signin"} />} />
       <Route path='/messages' element={userData ? <Messages /> : <Navigate to={"/signin"} />} />

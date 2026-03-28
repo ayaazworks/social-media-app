@@ -145,7 +145,7 @@ export const search = async (req, res) => {
         const keyword = req.query.keyword;
 
         if (!keyword) {
-            return res.status(200).json([]); // Return empty array instead of 400 error
+            return res.status(200).json([]);
         }
 
         const users = await User.find({
@@ -154,8 +154,8 @@ export const search = async (req, res) => {
                 { name: { $regex: keyword, $options: "i" } }
             ]
         })
-            .select("name userName profileImage") // Only get necessary fields
-            .lean(); // Converts to plain JSON object
+            .select("name userName profileImage") 
+            .lean();
 
         return res.status(200).json(users);
     } catch (error) {

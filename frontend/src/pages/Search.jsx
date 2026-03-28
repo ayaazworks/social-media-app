@@ -4,15 +4,13 @@ import { FiSearch } from "react-icons/fi"
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { serverURL } from '../App';
-import { useDispatch, useSelector } from 'react-redux'; // Added useSelector
+import { useDispatch, useSelector } from 'react-redux'; 
 import { setSearchData } from '../redux/userSlice';
 
 const Search = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [input, setInput] = useState("")
-
-    // Connect to your userSlice to get the searchData
     const { searchData } = useSelector((state) => state.user);
 
     const handleSearch = async () => {
@@ -24,7 +22,7 @@ const Search = () => {
         try {
             const result = await axios.get(`${serverURL}/api/user/search`, {
                 params: { keyword: input },
-                withCredentials: true // CRITICAL: This allows the isAuth middleware to see your token
+                withCredentials: true
             });
 
             dispatch(setSearchData(result.data));
@@ -33,7 +31,6 @@ const Search = () => {
         }
     }
 
-    // Debounce search to prevent excessive API calls
     useEffect(() => {
         const timer = setTimeout(() => {
             handleSearch();
