@@ -25,7 +25,7 @@ import Search from './pages/Search'
 import getAllNotifications from './hooks/getAllNotifications'
 import Notifications from './pages/Notifications'
 import { setNotificationData } from './redux/userSlice'
-export const serverURL = "http://localhost:8000"
+export const serverURL = "https://social-media-app-production-7be3.up.railway.app"
 
 
 const App = () => {
