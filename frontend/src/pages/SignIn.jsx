@@ -1,20 +1,18 @@
-// import { useState } from 'react'
+import { useState } from 'react'
 import logo from "../assets/logoblack.png"
-import { IoIosEye } from "react-icons/io";
-import { IoIosEyeOff } from "react-icons/io";
+import { IoIosEye, IoIosEyeOff } from "react-icons/io";
 import logo_white from '../assets/logo2.png';
 import { serverURL } from '../App';
 import axios from 'axios'
-import {ClipLoader} from "react-spinners"
+import { ClipLoader } from "react-spinners"
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/userSlice';
 
 const SignIn = () => {
+  // Cleaned up state to only include fields actually used in SignIn
   const [inputClicked, setInputClicked] = useState({
-    name: false,
     userName: false,
-    email: false,
     password: false
   })
 
@@ -50,6 +48,7 @@ const SignIn = () => {
             <img className='w-[70px]' src={logo} alt='logo' />
           </div>
 
+          {/* Username Input */}
           <div className='relative flex items-center justify-start w-[90%] h-[50px] rounded-2xl border-2 border-black'>
             <label
               className={`text-gray-700 absolute left-5 p-[5px] bg-white text-[15px] transition-all duration-200 pointer-events-none ${(inputClicked.userName || userName.length > 0) ? "top-[-15px] text-xs" : ""}`}
@@ -69,7 +68,8 @@ const SignIn = () => {
             />
           </div>
 
-          <div className='relative flex items-center justify-start w-[90%] h-[50px] rounded-2xl  border-2 border-black'>
+          {/* Password Input */}
+          <div className='relative flex items-center justify-start w-[90%] h-[50px] rounded-2xl border-2 border-black'>
             <label
               className={`text-gray-700 absolute left-5 p-[5px] bg-white text-[15px] transition-all duration-200 pointer-events-none ${(inputClicked.password || password.length > 0) ? "top-[-15px] text-xs" : ""}`}
               htmlFor='password'
@@ -87,8 +87,12 @@ const SignIn = () => {
               required
             />
 
-            {!showPassword ? <IoIosEye className='absolute cursor-pointer right-5 w-[25px] h-[25px]' onClick={() => setShowPassword(true)} /> : <IoIosEyeOff className='absolute cursor-pointer right-5 w-[25px] h-[25px]' onClick={() => setShowPassword(false)} />}
-
+            {/* Toggle Password Visibility */}
+            {!showPassword ? (
+              <IoIosEye className='absolute cursor-pointer right-5 w-[25px] h-[25px]' onClick={() => setShowPassword(true)} />
+            ) : (
+              <IoIosEyeOff className='absolute cursor-pointer right-5 w-[25px] h-[25px]' onClick={() => setShowPassword(false)} />
+            )}
           </div>
           
           <div onClick={() => navigate("/forgot-password")} className='w-[90%] px-5 cursor-pointer hover:underline '>
@@ -97,7 +101,9 @@ const SignIn = () => {
 
           {err && <p className='text-red-500'>{err}</p>}
 
-          <button onClick={handleSignIn} disabled={loading} className='w-[70%] px-5 py-2.5 bg-black text-white font-semibold h-12.5 cursor-pointer rounded-2xl mt-7.5'>{loading ? <ClipLoader size={30} color='white' /> : "Sign in"}</button>
+          <button onClick={handleSignIn} disabled={loading} className='w-[70%] px-5 py-2.5 bg-black text-white font-semibold h-12.5 cursor-pointer rounded-2xl mt-7.5'>
+            {loading ? <ClipLoader size={30} color='white' /> : "Sign in"}
+          </button>
 
           <p onClick={() => navigate("/signup")} className=' text-gray-800 cursor-pointer '> New User ? <span className='border-b-2 border-b-black pb-[3px] text-black'>Sign up</span></p>
         </div>
@@ -105,7 +111,6 @@ const SignIn = () => {
         <div className='md:w-[50%] h-full hidden lg:flex justify-center items-center bg-[#000000] flex-col gap-[10px] test-white text-[16px] font-semibold rounded-l-[30px] shadow-2xl shadow-black'>
           <img className='w-[40%]' src={logo_white} alt='' />
           <p className='text-white'>Not Just A Platform , It's A VYBE</p>
-
         </div>
 
       </div>
