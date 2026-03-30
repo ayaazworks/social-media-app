@@ -6,6 +6,13 @@ import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
 import { useDispatch, useSelector } from 'react-redux'
 import usegetCurrentUser from './hooks/usegetCurrentUser'
+import  usegetSuggestedUsers  from '../hooks/usegetSuggestedUsers'
+import  usegetAllPost  from '../hooks/usegetAllPost'
+import  usegetAllLoops  from '../hooks/usegetAllLoops'
+import  usegetAllStories  from '../hooks/usegetAllStories'
+import  usegetFollowingList  from '../hooks/usegetFollowingList'
+import  usegetPrevChatUsers  from '../hooks/usegetPrevChatUsers'
+import usegetAllNotifications from '../hooks/usegetAllNotifications'
 import Profile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
 import Upload from './pages/upload'
@@ -23,11 +30,18 @@ export const serverURL = "https://social-media-app-production-7be3.up.railway.ap
 
 const App = () => {
   const dispatch = useDispatch();
-
+  usegetCurrentUser();
   const { userData, isLoading, notificationData } = useSelector(state => state.user);
   const { socket } = useSelector(state => state.socket);
 
   usegetCurrentUser();
+  usegetSuggestedUsers();
+  usegetAllPost();
+  usegetAllLoops();
+  usegetAllStories();
+  usegetFollowingList();
+  usegetPrevChatUsers();
+  usegetAllNotifications();
 
   if (isLoading) {
     return (
