@@ -56,6 +56,15 @@ const EditProfile = () => {
             setLoading(false)
         }
     }
+
+    if (!userData) {
+    return (
+      <div className='w-full h-screen flex justify-center items-center bg-[#0e1718]'>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-white"></div>
+      </div>
+    )
+  }
+    
     return (
         <div className='w-full min-h-screen bg-black flex items-center flex-col gap-5 '>
 
