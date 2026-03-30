@@ -29,14 +29,17 @@ export const serverURL = "https://social-media-app-production-7be3.up.railway.ap
 
 
 const App = () => {
-  getCurrentUser()
-  getSuggestedUsers()
-  getAllPost()
-  getAllLoops()
-  getAllStories()
-  getFollowingList()
-  getPrevChatUsers()
-  getAllNotifications()
+
+  useEffect(() => {
+  getCurrentUser();
+  getSuggestedUsers();
+  getAllPost();
+  getAllLoops();
+  getAllStories();
+  getFollowingList();
+  getPrevChatUsers();
+  getAllNotifications();
+}, [userData,notificationData]); 
 
   const { userData, notificationData } = useSelector(state => state.user)
   const { socket } = useSelector(state => state.socket)
