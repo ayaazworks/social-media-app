@@ -129,44 +129,45 @@ const LoopCard = ({ loop }) => {
                 <GoHeartFill className='w-[100px] h-[100px] text-white drop-shadow-2xl' />
             </div>}
 
-            <div ref={commentRef} className={`absolute z-[200] bottom-0 w-full h-[500px] p-[10px] rounded-t-4xl bg-[#0e1718] transition-transform duration-500 ease-in-out left-0 shadow-2xl shadow-black ${showComment ? "translate-y-0" : "translate-y-[100%]"}`}>
-                <h1 className='text-white text-[20px] text-center font-semibold'>Comments</h1>
-                <div className='w-full h-[350px] overflow-y-auto flex flex-col gap-[20px]'>
-
-                    {loop.comments.length == 0 && <div className='text-center text-white text-[20px] font-semibold mt-[50px]'> No Comments </div>}
-
-                    {loop.comments?.map((com, index) => (
-                        <div className='w-full flex flex-col gap-[5px] border-b-[1px] border-gray-800 justify-center pb-[10px] mt-[10px]'>
-                            <div className='flex justify-start items-center gap-[10px] md:gap-[20px]'>
-                                <div className='w-[30px] h-[30px] md:w-[40px] md:h-[60px] border-2 border-black rounded-full cursor-pointer overflow-hidden'>
-                                    <img src={com.author?.profileImage || nodp}
-                                        alt=''
-                                        className='w-full object-cover'
-                                    />
-                                </div>
-                                <div className='w-[150px] text-white font-semibold truncate '>
-                                    {com.author?.userName || "Unknown User"}
-                                </div>
-                            </div>
-                            <div className='text-white pl-[60px]'>{com.message}</div>
-                        </div>
-                    ))}
-                </div>
-                <div className='w-full flex flex-col gap-[30px] pb-[20px]'>
-                    <div className='w-full fixed bottom-0 h-[80px] flex items-center justify-between px-[10px] py-[20px]'>
-                        <div className='w-[30px] h-[30px] md:w-[40px] md:h-[60px] border-2 border-black rounded-full cursor-pointer overflow-hidden'>
-                            <img src={loop.author?.profileImage || nodp}
-                                alt=''
-                                className='w-full object-cover'
-                            />
-                        </div>
-                        <input type="text" className='px-[10px] text-white border-b-2 border-b-gray-500 w-[90%] outline-none h-[40px] placeholder:text-white' placeholder='write comment...' onChange={(e) => setMessage(e.target.value)} value={message} />
-                        {message && <button className='absolute right-[20px] cursor-pointer' onClick={handleComment}><IoSendSharp className='size-[25px] text-white' /></button>}
-
+            <div ref={commentRef} className={`absolute z-[200] bottom-0 w-full h-[500px] p-[10px] rounded-t-4xl bg-[#0e1718] transition-transform duration-500 ease-in-out left-0 shadow-2xl shadow-black flex flex-col ${showComment ? "translate-y-0" : "translate-y-[100%]"}`}>
+    <h1 className='text-white text-[20px] text-center font-semibold py-2'>Comments</h1>
+    
+    {/* 1. Added 'flex-1' so this area takes up all space except the input bar */}
+    <div className='w-full flex-1 overflow-y-auto flex flex-col gap-[20px]'>
+        {loop.comments.length === 0 && <div className='text-center text-white text-[20px] font-semibold mt-[50px]'> No Comments </div>}
+        {loop.comments?.map((com, index) => (
+            <div key={index} className='w-full flex flex-col gap-[5px] border-b-[1px] border-gray-800 justify-center pb-[10px] mt-[10px]'>
+                <div className='flex justify-start items-center gap-[10px] md:gap-[20px]'>
+                    <div className='w-[30px] h-[30px] md:w-[40px] md:h-[40px] border-2 border-black rounded-full cursor-pointer overflow-hidden'>
+                        <img src={com.author?.profileImage || nodp} alt='' className='w-full h-full object-cover' />
                     </div>
-
+                    <div className='w-[150px] text-white font-semibold truncate '>
+                        {com.author?.userName || "Unknown User"}
+                    </div>
                 </div>
+                <div className='text-white pl-[40px] md:pl-[60px]'>{com.message}</div>
             </div>
+        ))}
+    </div>
+
+    <div className='w-full border-t border-gray-800 bg-[#0e1718] h-[80px] flex items-center justify-between px-[10px]'>
+        <div className='w-[35px] h-[35px] border-2 border-black rounded-full overflow-hidden'>
+            <img src={userData?.profileImage || nodp} alt='' className='w-full h-full object-cover' />
+        </div>
+        <input 
+            type="text" 
+            className='px-[10px] text-white border-b-2 border-b-gray-500 w-[80%] outline-none h-[40px] bg-transparent placeholder:text-gray-400' 
+            placeholder='write comment...' 
+            onChange={(e) => setMessage(e.target.value)} 
+            value={message} 
+        />
+        {message && (
+            <button className='cursor-pointer' onClick={handleComment}>
+                <IoSendSharp className='size-[25px] text-white' />
+            </button>
+        )}
+    </div>
+</div>
 
 
             <video ref={videoRef} autoPlay muted={isMute} loop src={loop?.media} className='w-full max-h-full' onClick={handleClick} onTimeUpdate={handleTimeUpdate} onDoubleClick={handleLikeOnDoubleClick} />
