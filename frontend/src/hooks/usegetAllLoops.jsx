@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setpostData } from '../redux/postSlice'
 import { setLoopData } from '../redux/loopSlice'
 
-const getAllLoops = () => {
+const usegetAllLoops = () => {
     const dispatch = useDispatch()
     const {userData} = useSelector(state=>state.user)
     useEffect(()=>{
@@ -21,4 +21,4 @@ const getAllLoops = () => {
     },[dispatch,userData])
 }
 
-export default getAllLoops
+export default usegetAllLoops

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setFollowing, setUserData } from '../redux/userSlice'
 import { setCurrentUserStory } from '../redux/storySlice'
 
-const getFollowingList = () => {
+const usegetFollowingList = () => {
     const dispatch = useDispatch()
     const {storyData} = useSelector(state=>state.story)
     useEffect(()=>{
@@ -21,4 +21,4 @@ const getFollowingList = () => {
     },[storyData])
 }
 
-export default getFollowingList
+export default usegetFollowingList

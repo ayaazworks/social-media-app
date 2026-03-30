@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setpostData } from '../redux/postSlice'
 import { setNotificationData } from '../redux/userSlice'
 
-const getAllNotifications = () => {
+const usegetAllNotifications = () => {
     const dispatch = useDispatch()
     const { userData } = useSelector(state => state.user)
     useEffect(()=>{
@@ -21,4 +21,4 @@ const getAllNotifications = () => {
 },[dispatch,userData])
 }
 
-export default getAllNotifications
+export default usegetAllNotifications

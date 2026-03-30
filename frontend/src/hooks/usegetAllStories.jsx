@@ -4,7 +4,7 @@ import { serverURL } from '../App'
 import { useDispatch, useSelector } from 'react-redux'
 import { setStoryList } from '../redux/storySlice'
 
-const getAllStories = () => {
+const usegetAllStories = () => {
     const dispatch = useDispatch()
     const {userData} = useSelector(state=>state.user)
     const {storyData} = useSelector(state=>state.story)
@@ -21,4 +21,4 @@ const getAllStories = () => {
     },[userData, storyData])
 }
 
-export default getAllStories
+export default usegetAllStories

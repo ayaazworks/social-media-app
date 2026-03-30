@@ -6,7 +6,7 @@ import { setFollowing, setUserData } from '../redux/userSlice'
 import { setCurrentUserStory } from '../redux/storySlice'
 import { setPrevChatUsers } from '../redux/messageSlice'
 
-const getPrevChatUsers = () => {
+const usegetPrevChatUsers = () => {
     const dispatch = useDispatch()
     const {messages} = useSelector(state=>state.message)
     useEffect(()=>{
@@ -22,4 +22,4 @@ const getPrevChatUsers = () => {
     },[messages])
 }
 
-export default getPrevChatUsers
+export default usegetPrevChatUsers

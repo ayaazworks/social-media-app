@@ -5,71 +5,47 @@ import SignIn from './pages/SignIn'
 import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
 import { useDispatch, useSelector } from 'react-redux'
-import getCurrentUser from './hooks/getCurrentUser'
-import getSuggestedUsers from './hooks/getSuggestedUsers'
+import usegetCurrentUser from './hooks/usegetCurrentUser'
+import usegetSuggestedUsers from './hooks/usegetSuggestedUsers'
 import Profile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
 import Upload from './pages/upload'
-import getAllPost from './hooks/getAllPost'
+import usegetAllPost from './hooks/usegetAllPost'
 import Loops from './pages/Loops'
-import getAllLoops from './hooks/getAllLoops'
+import usegetAllLoops from './hooks/usegetAllLoops'
 import Story from './pages/Story'
-import getAllStories from './hooks/getAllStories'
+import usegetAllStories from './hooks/usegetAllStories'
 import Messages from './pages/Messages'
 import MessagesArea from './pages/MessagesArea'
 import { io } from "socket.io-client"
 import { setOnlineUsers, setSocket } from './redux/socketSlice'
-import getFollowingList from './hooks/getFollowingList'
-import getPrevChatUsers from './hooks/getPrevChatUsers'
+import usegetFollowingList from './hooks/usegetFollowingList'
+import usegetPrevChatUsers from './hooks/usegetPrevChatUsers'
 import Search from './pages/Search'
-import getAllNotifications from './hooks/getAllNotifications'
+import usegetAllNotifications from './hooks/usegetAllNotifications'
 import Notifications from './pages/Notifications'
 import { setNotificationData, addSingleNotification } from './redux/userSlice'
 export const serverURL = "https://social-media-app-production-7be3.up.railway.app"
 
 
 const App = () => {
+  const dispatch = useDispatch();
+  
+  const { userData, isLoading, notificationData } = useSelector(state => state.user);
+  const { socket } = useSelector(state => state.socket);
 
-  useEffect(() => {
-  getCurrentUser();
-  getSuggestedUsers();
-  getAllPost();
-  getAllLoops();
-  getAllStories();
-  getFollowingList();
-  getPrevChatUsers();
-  getAllNotifications();
-}, []); 
-
-  const { userData, notificationData } = useSelector(state => state.user)
-  const { socket } = useSelector(state => state.socket)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-  let socketIo;
-
-  if (userData) {
-    socketIo = io(serverURL, {
-      query: { userId: userData._id }
-    });
-    
-    dispatch(setSocket(socketIo));
-
-    socketIo.on("newNotification", (noti) => {
-      // We no longer need notificationData here!
-      dispatch(addSingleNotification(noti)); 
-    });
-
-    return () => {
-      socketIo.close();
-      dispatch(setSocket(null));
-    };
-  }
-}, [userData, dispatch]); 
+  usegetCurrentUser(serverURL);
+  usegetSuggestedUsers(serverURL);
+  usegetAllPost(serverURL);
+  usegetAllLoops(serverURL);
+  usegetAllStories(serverURL);
+  usegetFollowingList(serverURL);
+  usegetPrevChatUsers(serverURL);
+  usegetAllNotifications(serverURL);
 
   if (isLoading) {
     return (
-      <div className="loading-screen">
+      <div className="loading-screen" style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100vh'}}>
         <h1>Loading...</h1> 
       </div>
     );

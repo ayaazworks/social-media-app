@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setFollowing, setUserData, setIsLoading } from '../redux/userSlice'
 import { setCurrentUserStory } from '../redux/storySlice'
 
-const getCurrentUser = () => {
+const usegetCurrentUser = () => {
     const dispatch = useDispatch()
     const {storyData} = useSelector(state=>state.story)
     useEffect(()=>{
@@ -26,4 +26,4 @@ const getCurrentUser = () => {
     },[dispatch])
 }
 
-export default getCurrentUser
+export default usegetCurrentUser
