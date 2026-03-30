@@ -29,7 +29,7 @@ const Messages = () => {
         {prevChatUsers.map((user, index) => (
           <div className='text-white cursor-pointer w-full flex items-center gap-[10px] ' key={index} onClick={() => {
             dispatch(setselectedUser(user))
-            navigate("/messagearea")
+            navigate("/messagesarea")
           }}>
             {onlineUsers?.includes(user._id) ? <OnlineUser user={user} /> : <div className='w-[50px] h-[50px] border-2 border-black rounded-full cursor-pointer overflow-hidden'>
               <img src={user.profileImage || nodp} alt='' className='w-full object-cover' />
