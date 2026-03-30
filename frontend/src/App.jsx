@@ -30,7 +30,7 @@ export const serverURL = "https://social-media-app-production-7be3.up.railway.ap
 
 const App = () => {
   const dispatch = useDispatch();
-  
+
   const { userData, isLoading, notificationData } = useSelector(state => state.user);
   const { socket } = useSelector(state => state.socket);
 
@@ -45,13 +45,12 @@ const App = () => {
 
   if (isLoading) {
     return (
-      <div className="loading-screen" style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100vh'}}>
-      <div className="loading-screen" style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100vh'}}>
-        <h1>Loading...</h1> 
+      <div className="loading-screen" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <h1>Loading...</h1>
       </div>
     );
   }
-  
+
   return (
     <Routes>
       <Route path='/' element={userData ? <Home /> : <Navigate to={"/signin"} />} />
@@ -60,7 +59,7 @@ const App = () => {
       <Route path='/forgot-password' element={!userData ? <ForgotPassword /> : <Navigate to={"/"} />} />
 
       {/* Grouping protected routes */}
-      
+
       <Route path='/profile/:userName' element={userData ? <Profile /> : <Navigate to={"/signin"} />} />
       <Route path='/editprofile' element={userData ? <EditProfile /> : <Navigate to={"/signin"} />} />
       <Route path='/messages' element={userData ? <Messages /> : <Navigate to={"/signin"} />} />
