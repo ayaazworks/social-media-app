@@ -158,9 +158,13 @@ const Profile = () => {
             {postType == "posts" && postData.map((post, index) => (
               post.author?._id == profileData?._id && <Post key={index} post={post} />
             ))}
-            {postType == "saved" && postData.map((post, index) => (
-              userData?.saved?.includes(post._id) && <Post key={index} post={post} />
-            ))}
+            {postType === "saved" && postData.map((post, index) => {
+  const isThisPostSaved = userData?.saved?.some(item => 
+    (item._id || item).toString() === post._id.toString()
+  );
+  
+  return isThisPostSaved ? <Post key={post._id} post={post} /> : null;
+})}
           </>
           }
 
