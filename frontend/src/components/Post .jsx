@@ -24,7 +24,9 @@ const Post = ({ post }) => {
   if (!post) return null;
 
   const isLiked = post.likes.includes(userData?._id);
-  const isSaved = userData?.saved?.includes(post?._id);
+  const isSaved = userData?.saved?.some(item => 
+  (item._id || item).toString() === post?._id?.toString()
+);
 
   const handleLike = async () => {
     if (!userData) return alert("Please login to like posts");
