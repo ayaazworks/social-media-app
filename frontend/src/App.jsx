@@ -79,7 +79,7 @@ const App = () => {
       <Route path='/profile/:userName' element={userData ? <Profile /> : <Navigate to={"/signin"} />} />
       <Route path='/editprofile' element={userData ? <EditProfile /> : <Navigate to={"/signin"} />} />
       <Route path='/messages' element={userData ? <Messages /> : <Navigate to={"/signin"} />} />
-      <Route path='/messagearea' element={userData ? <MessagesArea /> : <Navigate to={"/signin"} />} />
+      <Route path='/messagesarea' element={userData ? <MessagesArea /> : <Navigate to={"/signin"} />} />
       <Route path='/upload' element={userData ? <Upload /> : <Navigate to={"/signin"} />} />
       <Route path='/loops' element={userData ? <Loops /> : <Navigate to={"/signin"} />} />
       <Route path='/notifications' element={userData ? <Notifications /> : <Navigate to={"/signin"} />} />
