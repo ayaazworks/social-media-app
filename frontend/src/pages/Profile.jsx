@@ -42,7 +42,7 @@ const Profile = () => {
   }, [userName, dispatch])
 
   if (!profileData) {
-    return if <div className='w-full h-screen flex justify-center items-center bg-[#0e1718]'>
+    return <div className='w-full h-screen flex justify-center items-center bg-[#0e1718]'>
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-white"></div>
       </div>
   }
