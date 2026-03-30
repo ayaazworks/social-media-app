@@ -30,6 +30,9 @@ const userSlice = createSlice({
         setNotificationData: (state, action) => {
             state.notificationData = action.payload
         },
+        setIsLoading: (state, action) => {
+            state.isLoading = action.payload
+        },
         toggleFollow: (state, action) => {
             const targetUserId = action.payload
             if (state.following.includes(targetUserId)) {
