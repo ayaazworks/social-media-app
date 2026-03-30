@@ -46,30 +46,26 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    let socketIo;
+  let socketIo;
 
-    if (userData) {
-      socketIo = io(serverURL, {
-        query: { userId: userData._id }
-      })
-      dispatch(setSocket(socketIo))
+  if (userData) {
+    socketIo = io(serverURL, {
+      query: { userId: userData._id }
+    });
+    
+    dispatch(setSocket(socketIo));
 
-      socketIo.on('getOnlineUsers', (users) => {
-        dispatch(setOnlineUsers(users))
-      })
+    socketIo.on("newNotification", (noti) => {
+      // We no longer need notificationData here!
+      dispatch(addSingleNotification(noti)); 
+    });
 
-
-      socketIo.on("newNotification", (noti) => {
-
-        dispatch(setNotificationData([...notificationData, noti]))
-      })
-
-      return () => {
-        socketIo.close()
-        dispatch(setSocket(null))
-      }
-    }
-  }, [userData, dispatch])
+    return () => {
+      socketIo.close();
+      dispatch(setSocket(null));
+    };
+  }
+}, [userData, dispatch]); // Clean and stable
   return (
     <Routes>
       <Route path='/' element={userData ? <Home /> : <Navigate to={"/signin"} />} />
