@@ -24,7 +24,7 @@ import getPrevChatUsers from './hooks/getPrevChatUsers'
 import Search from './pages/Search'
 import getAllNotifications from './hooks/getAllNotifications'
 import Notifications from './pages/Notifications'
-import { setNotificationData } from './redux/userSlice'
+import { setNotificationData, addSingleNotification } from './redux/userSlice'
 export const serverURL = "https://social-media-app-production-7be3.up.railway.app"
 
 
