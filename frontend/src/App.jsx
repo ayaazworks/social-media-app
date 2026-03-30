@@ -6,23 +6,16 @@ import ForgotPassword from './pages/ForgotPassword'
 import Home from './pages/Home'
 import { useDispatch, useSelector } from 'react-redux'
 import usegetCurrentUser from './hooks/usegetCurrentUser'
-import usegetSuggestedUsers from './hooks/usegetSuggestedUsers'
 import Profile from './pages/Profile'
 import EditProfile from './pages/EditProfile'
 import Upload from './pages/upload'
-import usegetAllPost from './hooks/usegetAllPost'
 import Loops from './pages/Loops'
-import usegetAllLoops from './hooks/usegetAllLoops'
 import Story from './pages/Story'
-import usegetAllStories from './hooks/usegetAllStories'
 import Messages from './pages/Messages'
 import MessagesArea from './pages/MessagesArea'
 import { io } from "socket.io-client"
 import { setOnlineUsers, setSocket } from './redux/socketSlice'
-import usegetFollowingList from './hooks/usegetFollowingList'
-import usegetPrevChatUsers from './hooks/usegetPrevChatUsers'
 import Search from './pages/Search'
-import usegetAllNotifications from './hooks/usegetAllNotifications'
 import Notifications from './pages/Notifications'
 import { setNotificationData, addSingleNotification } from './redux/userSlice'
 export const serverURL = "https://social-media-app-production-7be3.up.railway.app"
@@ -35,13 +28,6 @@ const App = () => {
   const { socket } = useSelector(state => state.socket);
 
   usegetCurrentUser();
-  usegetSuggestedUsers();
-  usegetAllPost();
-  usegetAllLoops();
-  usegetAllStories();
-  usegetFollowingList();
-  usegetPrevChatUsers();
-  usegetAllNotifications();
 
   if (isLoading) {
     return (
