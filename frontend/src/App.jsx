@@ -39,7 +39,7 @@ const App = () => {
   getFollowingList();
   getPrevChatUsers();
   getAllNotifications();
-}, [userData,notificationData]); 
+}, []); 
 
   const { userData, notificationData } = useSelector(state => state.user)
   const { socket } = useSelector(state => state.socket)
