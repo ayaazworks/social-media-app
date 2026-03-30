@@ -44,19 +44,19 @@ const LeftHome = () => {
                         <img src={userData.profileImage || nodp} alt='' className='w-full object-cover' />
                     </div>
                     <div>
-                        <div className='text-[18px] text-white font-semibold'>{userData.userName}</div>
-                        <div className='text-[15px] text-gray-400 font-semibold'>{userData.name}</div>
+                        <div className='text-[18px] text-white font-semibold'>{userData?.userName}</div>
+                        <div className='text-[15px] text-gray-400 font-semibold'>{userData?.name}</div>
                     </div>
                 </div>
 
                 <div className='text-blue-500 font-semibold cursor-pointer' onClick={handleLogOut} >Log Out</div>
             </div>
-                <div className='w-full flex flex-col gap-5 p-5' >
-                    <h4 className='text-white text-[19px]'>Suggested Users</h4>
-                    {suggestedUsers && suggestedUsers.slice(0, 3).map((user, index) => (
-                        <OtherUsers key={index} user={user} />
-                    ))}
-                </div>
+                <div className='w-full flex flex-col gap-5 p-5'>
+    <h4 className='text-white text-[19px]'>Suggested Users</h4>
+    {suggestedUsers?.slice(0, 3).map((user, index) => (
+        <OtherUsers key={user?._id || index} user={user} />
+    ))}
+</div>
             </>}
 
             {showNotification && <Notifications />}
