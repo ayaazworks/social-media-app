@@ -15,12 +15,13 @@ const usegetCurrentUser = () => {
                 dispatch(setUserData(result.data))
                 dispatch(setCurrentUserStory(result.data.story))
                 dispatch(setIsLoading(false))
-            } catch (error) {
-                dispatch(setIsLoading(false))
-                console.log(error)
-            } finally {
-                dispatch(setIsLoading(false)) // Fixed syntax error here
-            }
+} catch (error) {
+    console.log("Session fetch failed:", error);
+    dispatch(setUserData(null)); // Clear any old user data
+    dispatch(setCurrentUserStory(null));
+} finally {
+    dispatch(setIsLoading(false));
+}
         }
         fetchUser()
     },[dispatch])
