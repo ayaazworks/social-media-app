@@ -18,6 +18,8 @@ const getCurrentUser = () => {
             } catch (error) {
                 dispatch(setIsLoading(false))
                 console.log(error)
+            } finally {
+                dispatch(setIsLoading(false)) // Fixed syntax error here
             }
         }
         fetchUser()
