@@ -33,8 +33,6 @@ const App = () => {
   usegetCurrentUser();
   const { userData, isLoading, notificationData } = useSelector(state => state.user);
   const { socket } = useSelector(state => state.socket);
-
-  usegetCurrentUser();
   usegetSuggestedUsers();
   usegetAllPost();
   usegetAllLoops();
