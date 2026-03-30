@@ -34,8 +34,6 @@ const App = () => {
 
 
   usegetCurrentUser();
-
-  if (userData) {
     usegetSuggestedUsers();
     usegetAllPost();
     usegetAllLoops();
@@ -43,7 +41,6 @@ const App = () => {
     usegetFollowingList();
     usegetPrevChatUsers();
     usegetAllNotifications();
-  }
 
   if (isLoading) {
     return (
