@@ -4,7 +4,7 @@ const storySlice = createSlice({
     name: "story",
     initialState: {
         storyData: null,
-        storyList: null,
+        storyList: [],
         currentUserStory: null
     },
     reducers: {
