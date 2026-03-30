@@ -42,7 +42,9 @@ const Profile = () => {
   }, [userName, dispatch])
 
   if (!profileData) {
-    return <div className="text-black">Loading...</div>
+    return if <div className='w-full h-screen flex justify-center items-center bg-[#0e1718]'>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-white"></div>
+      </div>
   }
 
   // Helper check to safely compare IDs
