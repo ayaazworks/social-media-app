@@ -29,47 +29,26 @@ export const serverURL = "https://social-media-app-production-7be3.up.railway.ap
 
 
 const App = () => {
+  const dispatch = useDispatch();
+  
+  const { userData, isLoading, notificationData } = useSelector(state => state.user);
+  const { socket } = useSelector(state => state.socket);
+
+  getCurrentUser(); 
 
   useEffect(() => {
-  getCurrentUser();
-  getSuggestedUsers();
-  getAllPost();
-  getAllLoops();
-  getAllStories();
-  getFollowingList();
-  getPrevChatUsers();
-  getAllNotifications();
-}, []); 
-
-  const { userData, notificationData } = useSelector(state => state.user)
-  const { socket } = useSelector(state => state.socket)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-  let socketIo;
-
-  if (userData) {
-    socketIo = io(serverURL, {
-      query: { userId: userData._id }
-    });
-    
-    dispatch(setSocket(socketIo));
-
-    socketIo.on("newNotification", (noti) => {
-      // We no longer need notificationData here!
-      dispatch(addSingleNotification(noti)); 
-    });
-
-    return () => {
-      socketIo.close();
-      dispatch(setSocket(null));
-    };
-  }
-}, [userData, dispatch]); 
+    getSuggestedUsers();
+    getAllPost();
+    getAllLoops();
+    getAllStories();
+    getFollowingList();
+    getPrevChatUsers();
+    getAllNotifications();
+  }, []);
 
   if (isLoading) {
     return (
-      <div className="loading-screen">
+      <div className="loading-screen" style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100vh'}}>
         <h1>Loading...</h1> 
       </div>
     );
