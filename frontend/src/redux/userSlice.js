@@ -47,5 +47,5 @@ const userSlice = createSlice({
     }
 })
 
-export const { setUserData, setSuggestedUsers, setProfileData, setFollowing, setSearchData, toggleFollow, setNotificationData, addSingleNotification } = userSlice.actions
+export const { setUserData, setSuggestedUsers, setProfileData, setFollowing, setSearchData, toggleFollow, setNotificationData, addSingleNotification, setIsLoading } = userSlice.actions
 export default userSlice.reducer
