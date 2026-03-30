@@ -46,6 +46,7 @@ const App = () => {
   if (isLoading) {
     return (
       <div className="loading-screen" style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100vh'}}>
+      <div className="loading-screen" style={{display:'flex', justifyContent:'center', alignItems:'center', height:'100vh'}}>
         <h1>Loading...</h1> 
       </div>
     );
