@@ -20,7 +20,7 @@ const FollowButton = ({targetUserId,tailwind,onFollowChange}) => {
     }
   }
   return (
-    <button className=`${tailwind} cursor-pointer` onClick={handleFollow}>
+    <button className={`${tailwind} cursor-pointer`} onClick={handleFollow}>
       {isFollowing?"Following":"Follow"}
     </button>
   )
