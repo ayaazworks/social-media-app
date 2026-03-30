@@ -65,7 +65,16 @@ const App = () => {
       dispatch(setSocket(null));
     };
   }
-}, [userData, dispatch]); // Clean and stable
+}, [userData, dispatch]); 
+
+  if (isLoading) {
+    return (
+      <div className="loading-screen">
+        <h1>Loading...</h1> 
+      </div>
+    );
+  }
+  
   return (
     <Routes>
       <Route path='/' element={userData ? <Home /> : <Navigate to={"/signin"} />} />
