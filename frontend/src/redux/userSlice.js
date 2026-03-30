@@ -36,7 +36,10 @@ const userSlice = createSlice({
             } else {
                 state.following.push(targetUserId)
             }
-        }
+        },
+        addSingleNotification: (state, action) => {
+        state.notificationData.push(action.payload);
+}
     }
 })
 
