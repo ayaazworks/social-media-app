@@ -23,7 +23,7 @@ const getCurrentUser = () => {
             }
         }
         fetchUser()
-    },[storyData])
+    },[dispatch])
 }
 
 export default getCurrentUser
