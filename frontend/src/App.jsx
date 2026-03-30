@@ -45,8 +45,8 @@ const App = () => {
 
   if (isLoading) {
     return (
-      <div className="loading-screen" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <h1>Loading...</h1>
+      <div className='w-full h-screen flex justify-center items-center bg-[#0e1718]'>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-white"></div>
       </div>
     );
   }
