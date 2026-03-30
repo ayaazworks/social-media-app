@@ -34,14 +34,14 @@ const App = () => {
   const { userData, isLoading, notificationData } = useSelector(state => state.user);
   const { socket } = useSelector(state => state.socket);
 
-  usegetCurrentUser(serverURL);
-  usegetSuggestedUsers(serverURL);
-  usegetAllPost(serverURL);
-  usegetAllLoops(serverURL);
-  usegetAllStories(serverURL);
-  usegetFollowingList(serverURL);
-  usegetPrevChatUsers(serverURL);
-  usegetAllNotifications(serverURL);
+  usegetCurrentUser();
+  usegetSuggestedUsers();
+  usegetAllPost();
+  usegetAllLoops();
+  usegetAllStories();
+  usegetFollowingList();
+  usegetPrevChatUsers();
+  usegetAllNotifications();
 
   if (isLoading) {
     return (
