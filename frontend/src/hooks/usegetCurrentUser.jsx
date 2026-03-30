@@ -19,6 +19,7 @@ const usegetCurrentUser = () => {
     console.log("Session fetch failed:", error);
     dispatch(setUserData(null)); // Clear any old user data
     dispatch(setCurrentUserStory(null));
+    dispatch(setIsLoading(false));
 } finally {
     dispatch(setIsLoading(false));
 }
