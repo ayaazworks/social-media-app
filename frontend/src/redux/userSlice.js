@@ -8,7 +8,8 @@ const userSlice = createSlice({
         profileData: null,
         following: [],
         searchData: null,
-        notificationData: []
+        notificationData: [],
+        isLoading: true
     },
     reducers: {
         setUserData: (state, action) => {
