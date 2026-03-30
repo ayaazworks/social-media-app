@@ -11,7 +11,7 @@ const OnlineUser = ({ user }) => {
         <div className='w-[50px] h-[50px] flex gap-[20px] justify-start items-center relative'>
             <div className='w-[50px] h-[50px] border-2 border-black rounded-full cursor-pointer overflow-hidden' onClick={() => {
                 dispatch(setselectedUser(user))
-                navigate(`/messagearea`)
+                navigate(`/messagesarea`)
             }}>
                 <img src={user.profileImage || nodp} alt='' className='w-full object-cover' />
             </div>
