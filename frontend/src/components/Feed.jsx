@@ -37,9 +37,14 @@ const Feed = () => {
 
         <StoryDp userName={"Your Story"} profileImage={userData?.profileImage} story={currentUserStory} />
 
-        {storyList?.map((story, index) => (
-          <StoryDp userName={story?.author?.userName} profileImage={story?.author?.profileImage} story={story} key={index} />
-        ))}
+        {(storyList || []).map((story, index) => (
+  <StoryDp 
+    userName={story?.author?.userName} 
+    profileImage={story?.author?.profileImage} 
+    story={story} 
+    key={story?._id || index} 
+  />
+))}
 
       </div>
       <div className='w-full min-h-[100vh] flex flex-col items-center gap-5 p-2.5 pt-10 bg-white rounded-t-[60px] relative pb-30'>
