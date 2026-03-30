@@ -14,8 +14,9 @@ const getCurrentUser = () => {
                 const result = await axios.get(`${serverURL}/api/user/current`,{withCredentials:true})
                 dispatch(setUserData(result.data))
                 dispatch(setCurrentUserStory(result.data.story))
-                dispatch(setIsLoading(false)
+                dispatch(setIsLoading(false))
             } catch (error) {
+                dispatch(setIsLoading(false))
                 console.log(error)
             }
         }
