@@ -8,9 +8,13 @@ A feature-rich social media platform built with the **MERN stack** and **Socket.
 
 **Experience the app live here:** [https://friendly-grace-production-6569.up.railway.app](https://friendly-grace-production-6569.up.railway.app)
 
-
+Home page
 <img width="1297" height="654" alt="Screenshot from 2026-03-31 13-15-58" src="https://github.com/user-attachments/assets/85852035-e891-4b6a-b028-fe2f18b3b4d7" />
+
+Message Area (text & image)
 <img width="1297" height="654" alt="Screenshot from 2026-03-31 13-16-10" src="https://github.com/user-attachments/assets/f32be7c9-c274-42c4-bfb1-d8268ca02f0d" />
+
+Loop(Reels) page
 <img width="1297" height="654" alt="Screenshot from 2026-03-31 13-16-40" src="https://github.com/user-attachments/assets/4b86e713-d74a-4a89-81a7-04fc6273ff7b" />
 
 -----
