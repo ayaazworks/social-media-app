@@ -26,7 +26,7 @@ const Messages = () => {
       </div>
 
       <div className='w-full h-full overflow-auto flex flex-col gap-[20px]'>
-        {prevChatUsers.map((user, index) => (
+        {prevChatUsers?.map((user, index) => (
           <div className='text-white cursor-pointer w-full flex items-center gap-[10px] ' key={index} onClick={() => {
             dispatch(setselectedUser(user))
             navigate("/messagesarea")
