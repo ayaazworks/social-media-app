@@ -155,10 +155,10 @@ const Profile = () => {
 
           {/* Logic for OWN Profile */}
           {isOwnProfile && <>
-            {postType == "posts" && postData.map((post, index) => (
+            {postType == "posts" && postData?.map((post, index) => (
               post.author?._id == profileData?._id && <Post key={index} post={post} />
             ))}
-            {postType === "saved" && postData.map((post, index) => {
+            {postType === "saved" && postData?.map((post, index) => {
   const isThisPostSaved = userData?.saved?.some(item => 
     (item._id || item).toString() === post._id.toString()
   );
@@ -169,7 +169,7 @@ const Profile = () => {
           }
 
           {/* Logic for OTHER Profile */}
-          {!isOwnProfile && postData.map((post, index) => (
+          {!isOwnProfile && postData?.map((post, index) => (
             post.author?._id == profileData?._id && <Post key={index} post={post} />
           ))
           }
