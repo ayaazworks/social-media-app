@@ -46,12 +46,12 @@ A feature-rich social media platform built with the **MERN stack** and **Socket.
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/instagram-clone.git
+   git clone https://github.com/ayaazworks/social-media-app.git
    ```
 
 2. **Backend Setup**
    * Navigate to `/backend`
-   * Create a `.env` file with: `PORT`, `MONGO_URI`, `JWT_SECRET`, `CLOUDINARY_URL`.
+   * Create a `.env` file with: `PORT`, `MONGODB_URI`, `JWT_SECRET`, `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `EMAIL`, `EMAIL_PASS`.
    * Run `npm install` then `npm run dev`.
 
 3. **Frontend Setup**
@@ -67,11 +67,15 @@ A feature-rich social media platform built with the **MERN stack** and **Socket.
 │   ├── src/
 │   │   ├── components/   # Reusable UI (FollowButton, Post, Nav)
 │   │   ├── hooks/        # Custom Data Fetching Hooks
-│   │   ├── pages/        # Main Views (Home, Profile, MessagesArea)
-│   │   └── redux/        # Redux Toolkit Slices (userSlice, socketSlice)
+│   │   ├── pages/        # Main Views (Home, Profile, MessagesArea, etc)
+│   │   ├── assets/       # logos and nodp
+│   │   └── redux/        # Redux Toolkit Slices (userSlice, loopSlice, etc)
 └── backend/
+    ├── configs/          # cloudinary, mail, token, database setup
     ├── controllers/      # Logic for users, posts, and notifications
+    ├── middlewares/      # auth and multer middlewares
     ├── models/           # Mongoose Schemas (User, Post, Notification)
+    ├── public/           # tempory space for files
     ├── routes/           # Express Route Definitions
     └── index.js          # Entry point & Socket.io setup
 ```
