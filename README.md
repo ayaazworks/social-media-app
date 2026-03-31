@@ -1,4 +1,4 @@
-# 📸 Instagram Clone (Full-Stack)
+<img width="1297" height="654" alt="Screenshot from 2026-03-31 13-16-40" src="https://github.com/user-attachments/assets/7ddf4e10-9146-47ae-86fd-7bf9921c5e68" /># 📸 Instagram Clone (Full-Stack)
 
 A feature-rich social media platform built with the **MERN stack** and **Socket.io**, featuring real-time interactions, media uploads, and a responsive UI.
 
@@ -7,6 +7,11 @@ A feature-rich social media platform built with the **MERN stack** and **Socket.
 ## 🔗 Live Demo
 
 **Experience the app live here:** [https://friendly-grace-production-6569.up.railway.app](https://friendly-grace-production-6569.up.railway.app)
+
+
+<img width="1297" height="654" alt="Screenshot from 2026-03-31 13-15-58" src="https://github.com/user-attachments/assets/85852035-e891-4b6a-b028-fe2f18b3b4d7" />
+<img width="1297" height="654" alt="Screenshot from 2026-03-31 13-16-10" src="https://github.com/user-attachments/assets/f32be7c9-c274-42c4-bfb1-d8268ca02f0d" />
+<img width="1297" height="654" alt="Screenshot from 2026-03-31 13-16-40" src="https://github.com/user-attachments/assets/4b86e713-d74a-4a89-81a7-04fc6273ff7b" />
 
 -----
 
