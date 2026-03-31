@@ -1,4 +1,4 @@
-<img width="1297" height="654" alt="Screenshot from 2026-03-31 13-16-40" src="https://github.com/user-attachments/assets/7ddf4e10-9146-47ae-86fd-7bf9921c5e68" /># 📸 Instagram Clone (Full-Stack)
+# 📸 Instagram Clone (Full-Stack)
 
 A feature-rich social media platform built with the **MERN stack** and **Socket.io**, featuring real-time interactions, media uploads, and a responsive UI.
 
